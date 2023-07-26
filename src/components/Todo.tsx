@@ -1,22 +1,24 @@
 import { styled } from "styled-components";
 import { useEffect, useState } from "react";
 
+import type { ToDo } from "../utils/handleAPI";
+
 import List from "./List";
 import { addToDo, getAllToDo, updateToDo, deleteToDo } from "../utils/handleAPI";
 
 
-const Todo = () => {
-  const [toDo, setToDo] = useState([]);
-  const [text, setText] = useState('');
-  const [isUpdating, setIsUpdating] = useState(false);
-  const [toDoId, setToDoId] = useState(''); 
+const Todo = (): JSX.Element => {
+  const [toDo, setToDo] = useState<ToDo[]>([]);
+  const [text, setText] = useState<string>('');
+  const [isUpdating, setIsUpdating] = useState<boolean>(false);
+  const [toDoId, setToDoId] = useState<string>(''); 
   
 
   useEffect(() => {
     getAllToDo(setToDo);
   }, []);
 
-  const updateMode = (_id, text) => {
+  const updateMode = (_id: string, text: string): void => {
     setIsUpdating(true);
     setText(text);
     setToDoId(_id);
@@ -36,7 +38,7 @@ const Todo = () => {
         <Add 
           onClick={
             isUpdating ? 
-              () => updateToDo(toDoId, text, setToDo, setText, isUpdating) 
+              () => updateToDo(toDoId, text, setToDo, setText, setIsUpdating) 
               : () => addToDo(text, setText, setToDo)
           }
         >

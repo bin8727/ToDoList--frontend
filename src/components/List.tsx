@@ -3,7 +3,13 @@ import { styled } from "styled-components";
 import { BiEdit } from 'react-icons/bi';
 import { AiFillDelete } from 'react-icons/ai';
 
-const List = ({text, updateMode, deleteTodo}) => {
+interface ListProps {
+  text: String;
+  updateMode: () => void;
+  deleteTodo: () => void;
+}
+
+const List = ({text, updateMode, deleteTodo}: ListProps): JSX.Element => {
   return (
     <Todo>
       <Text>{text}</Text>
